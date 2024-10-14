@@ -1,41 +1,57 @@
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import './App.css';
+import { useState } from 'react';
+import Shoes from './shose';
+import data from './data';
+import { Route, Routes } from 'react-router-dom';
+import Detail from './detail';
+
+
+
 
 function App() {
+
+  let [shoes, setShoes] = useState(data);
+
   return (
     <div className="App">
+
+
+
+
+
            <Navbar bg="dark" data-bs-theme="dark">
         <Container>
             <Navbar.Brand href="#home">매기샵</Navbar.Brand>
             <Nav className="me-auto">
-            <Nav.Link href="#home">홈</Nav.Link>
+            <Nav.Link href="/detail">상세페이지</Nav.Link>
             <Nav.Link href="#features">Cart</Nav.Link>
             <Nav.Link href="#pricing">사진</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
-      <div className='main-bg'></div>
 
-      <div className="container">
-      <div className="row">
-        <div className="col-md-4">
-          <img src='https://codingapple1.github.io/shop/shoes1.jpg' width="80%"/>
-          <h4>상품명</h4>
-          <p>설명</p>
-        </div>
-        <div className="col-md-4">
-          <img src='https://codingapple1.github.io/shop/shoes2.jpg' width="80%"/>
-          <h4>상품명</h4>
-          <p>설명</p>
-        </div>
-        <div className="col-md-4">
-          <img src='https://codingapple1.github.io/shop/shoes3.jpg' width="80%"/>
-          <h4>상품명</h4>
-          <p>설명</p>
-        </div>
-      </div>
-     </div> 
+      <Routes>
+        <Route path='/detail' element={<Detail shoes={shoes}></Detail>} />
+        <Route path='/' element={<div>
+          <div className='main-bg'></div>
+            <div className="container">
+              <div className="row">
+              {
+                shoes.map(function(a, i){
+                  return(
+                  <Shoes shoes={shoes} i={i}></Shoes>
+                )})
+              }
+              </div>
+            </div> 
+          </div>}/>
+      </Routes>
+
+
+
+     
 
     </div>
   );
