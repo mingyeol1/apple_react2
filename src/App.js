@@ -7,6 +7,7 @@ import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import Detail from './routes/detail';
 import About from './routes/about';
 import Event from './routes/event';
+import axios from 'axios';
 
 
 
@@ -15,9 +16,13 @@ function App() {
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+  let [num, setNum] = useState(2);
+  let [loding, setLoding] = useState(false)
 
   return (
     <div className="App">
+      
+      
 
 
 
@@ -45,11 +50,24 @@ function App() {
               {
                 shoes.map(function(a, i){
                   return(
-               <Link to={`/detail/${i}`} key={i}>  <Shoes shoes={shoes} i={i} key={i}></Shoes> </Link>
+                <Shoes shoes={shoes} i={i} key={i}></Shoes> 
                 )})
               }
               </div>
             </div> 
+            <button style={{display : num > 3 ? "none" : "block"}} onClick={()=>{ setNum(num+1)
+                axios.get(`https://codingapple1.github.io/shop/data${num}.json`)
+                .then((result)=>{ 
+                  setLoding(true)
+                  let copy = [...shoes, ...result.data];
+                  setShoes(copy)
+                  setLoding(false)
+                }).catch(()=>{
+                  setLoding(false)
+                    console.log('GET요청 실패')
+                  })
+            }}>불러오기</button>
+            {loding === true && <h3>로딩중.....</h3>}
             <button onClick={()=>{
               let copy = [...shoes].sort((a, b) => a.title.localeCompare(b.title));
               setShoes(copy);
