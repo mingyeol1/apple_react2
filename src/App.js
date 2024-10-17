@@ -3,7 +3,7 @@ import './App.css';
 import { useState } from 'react';
 import Shoes from './shose';
 import data from './data';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import Detail from './routes/detail';
 import About from './routes/about';
 import Event from './routes/event';
@@ -36,7 +36,8 @@ function App() {
 
 
       <Routes>
-        <Route path='/detail' element={<Detail shoes={shoes}></Detail>} />
+        
+        <Route path='/detail/:id' element={<Detail shoes={shoes}></Detail>} />
         <Route path='/' element={<div>
           <div className='main-bg'></div>
             <div className="container">
@@ -44,11 +45,15 @@ function App() {
               {
                 shoes.map(function(a, i){
                   return(
-                 <Shoes shoes={shoes} i={i}></Shoes>
+               <Link to={`/detail/${i}`} key={i}>  <Shoes shoes={shoes} i={i} key={i}></Shoes> </Link>
                 )})
               }
               </div>
             </div> 
+            <button onClick={()=>{
+              let copy = [...shoes].sort((a, b) => a.title.localeCompare(b.title));
+              setShoes(copy);
+            }}>글정렬</button>
           </div>}/>
           <Route path='*' element={<div>존재하지 않는 페이지</div>}></Route>
           <Route path='/about' element={<About/>}>
