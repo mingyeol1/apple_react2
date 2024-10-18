@@ -334,6 +334,7 @@ ajax 쓰려면 옵션 3개중 택 1
                 .then((data)=>{ 		// .then() 안에 콜백함수 받고 파라미터 값은 위에서 받은 데이터가 들어가 있음.
                   data })		// 서버가 보낸 핵심 데이터를 보려면 파라미터값에 .data를 붙이면 됨 ex) 파라미터값이 data이므로 console.log(data.data) 으로 핵심 데이터를 볼 수 있음 
             }}>불러오기</button>
+
 보통 작명은 결과 값을 알아볼 수 있게 result를 많이 씀 데이터만 불러올거면 data도 좋을듯?
 aixos 요청결과 : axios.get('URL').then()
 서버에서 GET요청으로 불러오려면 이렇게 하면 됨.
@@ -423,10 +424,10 @@ Context 사용하기
 npm install @reduxjs/toolkit@1.8.1 react-redux
 
 ### 깨알 html문법
-<!-- <tr>  --> 이 뭐냐 그냥 가로줄임
-<!-- <th>, <td> --> 넣으면 열 하나 생김.
-<!-- <thead> --> 없어도 되지만 테이블의 맨 윗줄을 가르킴 
-<!-- <tbody> --> 테이블 안쪽 내용영역.
+<tr>   이 뭐냐 그냥 가로줄임
+<th>, <td>  넣으면 열 하나 생김.
+<thead> 없어도 되지만 테이블의 맨 윗줄을 가르킴 
+<tbody> 테이블 안쪽 내용영역.
 
 
 ### Redux 왜 사용하냐?
@@ -453,17 +454,18 @@ Redux 세팅
 1. js파일 하나생성.
 
 2. 코드 복붙. 
-{
-import { configureStore } from "@reduxjs/toolkit";
 
+import { configureStore } from "@reduxjs/toolkit";
 export default configureStore({
+    
     reducer: {
-        
+
     }
 })
-}
+
+
 이게 뭐냐면 아까 말했던 state들을 보관하는 파일임. 
 
-3. index.jks 가서 <Provider store={ import해온거.js }> 쓰기    
+3. index.jks 가서 <Provider store= import해온거.js > 쓰기    
 
 그럼 이제 <App>과 그 모든 자식컴포넌트들은 store.js에 있던 state를 맘대로 꺼내쓸 수 있습니다.
