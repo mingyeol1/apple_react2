@@ -435,6 +435,8 @@ npm install @reduxjs/toolkit@1.8.1 react-redux
 
 ### Redux 왜 사용하냐?
 
+컴포넌트간 state 공유가 편해짐.
+
 Redux 사용하면 컴포넌트들이 props 없이 state 공유가능. Context API 랑 비슷함.
 
 Redux가 어떻게 작동되나?
