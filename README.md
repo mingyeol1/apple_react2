@@ -453,6 +453,7 @@ Redux 세팅
 1. js파일 하나생성.
 
 2. 코드 복붙. 
+{
 import { configureStore } from "@reduxjs/toolkit";
 
 export default configureStore({
@@ -460,7 +461,7 @@ export default configureStore({
         
     }
 })
-
+}
 이게 뭐냐면 아까 말했던 state들을 보관하는 파일임. 
 
 3. index.jks 가서 <Provider store={ import해온거.js }> 쓰기    
