@@ -1,6 +1,6 @@
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import './App.css';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import Shoes from './shose';
 import data from './data';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
@@ -8,8 +8,10 @@ import Detail from './routes/detail';
 import About from './routes/about';
 import Event from './routes/event';
 import axios from 'axios';
+import Cart from './routes/Cart';
 
 
+let Context1 = createContext();
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
   let navigate = useNavigate();
   let [num, setNum] = useState(2);
   let [loding, setLoding] = useState(false)
+  let [재고] = useState([10,11,12]);
 
   return (
     <div className="App">
@@ -43,6 +46,8 @@ function App() {
       <Routes>
         
         <Route path='/detail/:id' element={<Detail shoes={shoes}></Detail>} />
+        <Route path='/cart' element = {<Cart></Cart>}></Route>
+
         <Route path='/' element={<div>
           <div className='main-bg'></div>
             <div className="container">

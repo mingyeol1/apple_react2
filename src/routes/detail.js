@@ -29,7 +29,7 @@ function Detail(props){
     //     console.log(time)
     // },[])
     useEffect(()=>{
-       setFade('end'); //페이지 입장시 0.5초뒤에 end className 붙이기
+        setTimeout(()=>{setFade('end')},500); //페이지 입장시 0.5초뒤에 end className 붙이기
         return(()=>{
             setFade('');        //페이지 나갈 시 end 삭제 
         })

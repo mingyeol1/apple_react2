@@ -388,3 +388,81 @@ function Tapcount( {tap} ){
 2. 애니메이션 동작 후 className 만들기
 3. className에 transition 속성 추가.
 4. 원할 때 2번 className 부착.
+
+=====================================================
+
+### Context API
+
+1. 함수 밖에 createContext() 불러오기
+    let Context = createContext();
+    creteContext()가 뭔데 ? : state 보관함임 
+2. <Context>로 원하는 컴포넌트 감싸기.
+3. value={ { 공유하고싶은 state 넣기. } }
+
+Context 사용하기
+
+1. 감싼 컴포넌트중 사용할 위치에 import
+2. useContext(Context1) 해서 사용
+    useContext가 뭔데 : 보관함을 해체해줌.
+    let {스테이트명} = useContext(Context1); 이걸로 가져와서 해당 state 사용가능.
+    이렇게 사용하면 해당 컴포넌트 뿐만 아니라 자식 컴포넌트들도 쉽게 state를 사용가능 props로 하나하나 안해도됨.
+
+### 근데 사람들이 잘 안쓰는데 왜 그런가
+1. state 변경시 쓸데없는 것까지 재렌더링을 함. 성능이슈가 생길 수 있음
+2. 자식컴포넌트가 컨텍스트문법을 사용하고 있으면 나중에 재사용이 어려워질 수 있음.
+
+그래서 Context API보다는 외부라이브러리를 많이씀 redux같은거
+
+
+====================================================
+
+### Redux 
+
+설치 
+
+npm install @reduxjs/toolkit@1.8.1 react-redux
+
+### 깨알 html문법
+<!-- <tr>  --> 이 뭐냐 그냥 가로줄임
+<!-- <th>, <td> --> 넣으면 열 하나 생김.
+<!-- <thead> --> 없어도 되지만 테이블의 맨 윗줄을 가르킴 
+<!-- <tbody> --> 테이블 안쪽 내용영역.
+
+
+### Redux 왜 사용하냐?
+
+Redux 사용하면 컴포넌트들이 props 없이 state 공유가능. Context API 랑 비슷함.
+
+Redux가 어떻게 작동되나?
+
+js 파일 하나에 state들을 보관할 수 있는데
+
+그걸 모든 컴포넌트가 직접 꺼내쓸 수 있습니다. 
+
+그래서 귀찮은 props 전송이 필요없어집니다. 
+
+컴포넌트가 많아질 수록 좋겠군요. 
+
+그래서 사이트가 커지면 쓸 수 밖에 없어서 
+
+개발자 구인시에도 redux같은 라이브러리 숙련도를 대부분 요구합니다. 
+
+
+Redux 세팅
+
+1. js파일 하나생성.
+
+2. 코드 복붙. 
+import { configureStore } from "@reduxjs/toolkit";
+
+export default configureStore({
+    reducer: {
+        
+    }
+})
+
+이게 뭐냐면 아까 말했던 state들을 보관하는 파일임. 
+
+3. index.jks 가서 <Provider store={ import해온거.js }> 쓰기    
+
+그럼 이제 <App>과 그 모든 자식컴포넌트들은 store.js에 있던 state를 맘대로 꺼내쓸 수 있습니다.
