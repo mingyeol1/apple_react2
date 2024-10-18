@@ -425,8 +425,11 @@ npm install @reduxjs/toolkit@1.8.1 react-redux
 
 ### 깨알 html문법
 <tr>   이 뭐냐 그냥 가로줄임
+
 <th>, <td>  넣으면 열 하나 생김.
+
 <thead> 없어도 되지만 테이블의 맨 윗줄을 가르킴 
+
 <tbody> 테이블 안쪽 내용영역.
 
 
@@ -462,6 +465,7 @@ export default configureStore({
 
     }
 })
+
 
 
 이게 뭐냐면 아까 말했던 state들을 보관하는 파일임. 
