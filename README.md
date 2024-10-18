@@ -1,70 +1,380 @@
-# Getting Started with Create React App
+리액트에서 html로 화면을 출력하는게 아니라 js로 출력을 하는데 이게 가능한 이유는 JSX기 때문
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+JSX란 : .js파일에서 쓰는 html대용품
+왜 이걸 쓰냐? 
+리액트에서 <div>박스를 하나 만드려면 코드가 길어지는데 그걸 방지하기 위해 씀 
 
-## Available Scripts
+JSX문법 1.
+리액트에서 css를 사용하고 싶으면 자바스크립트에서 사용하는것처럼 똑같이 사용하면 됨.
+일반 html과 차이점은 class라 쓰면 안되고 JSX는 className을 써야함
+왜? 자바스크립트문법이기 때문에 class를 쓰면 프로그램문법으로 겹쳐서 className을 씀
 
-In the project directory, you can run:
+JSX문법 2.
+중괄호분법{}
+자바스크립트에서는 
+let post = '블로그 제목' 에서 post란 변수를 불러오고 싶을 때
+document.qureySelector('h4').innerHTML = post; 이렇게 불러오지만
+리액트에서는 중괄호{} 문법이 있음 
+return(
+  <p>{post(변수명)}<p> 만 적어도 불러와짐
+)
+변수명은 속성값등 어디에든 넣을 수 있다. 이걸 [데이터바인딩]이라 부름. 데이터를 꽂아 넣는다.
 
-### `npm start`
+JSX 문법 3.
+style 속성을 넣을 땐 style = { {color : 'red', fontSize : '16px'} } 식으로 넣어줘야함. style={ {스타일명 : '값'} }
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+자료를 저장하는 state 문법
+useState()를 임포트 함.
+let [a, b] = useState('남자 코트 추천') 으로 저장가능.
+[a , b] ? : a 는 스테이트에 저장했던 자료가 나옴. 변수랑 똑같이 저장했던 자료(남자 코트 추천)가 나옴
+사용은 { a } 와 일반 변수랑 같음 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+b는 state 변경을 도와주는 함수임.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+onClick={} 에서 중괄호{} 안에는 함수를 넣어줘야함
+onClick={function(){console.log(1)}} 처럼 문법을 바로 넣어줘도 됨.
+좀더 축약하고 싶으면 ? onClick={ () => { console.log(1) }} 로 에로우 문법을 써주면 됨.
 
-### `npm run build`
+[동적인 UI 만드는 3step]
+1. html css로 미리 디자인 완성
+2. UI의 현재 상태를 state로 저장
+  let [modal, setModal] = useState(''); // state안에 상태(형식)는 굳이 정해진게 없음
+  
+  let [modal, setModal] = useState(열림);
+  let [modal, setModal] = useState(0);
+  let [modal, setModal] = useState(true);
+ 뭐든 상관 없음.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. state에 따라 UI가 어떻게 보일지 작성.
+  조건문을 이용해서 보일지 안보일지 설정 : 대신 if문은 안되고 3항연산자를 이용해야함.
+  state가 true면 보이게 false면 안보이게 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+if문은 왜 안되느냐? 
+return문 안에는 html작성하는 곳이지 js작성하는곳이 아님.
+그래서 3항연산자를 이용함.
 
-### `npm run eject`
+3항 연산자 : 
+{
+ 조건식 ? 참일 때 실행할 코드 : 거짓일 때 실행할 코드
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+그래서 조건문을 쓰고싶으면 중괄호{} 안에다가 3항연산식을 사용하면 됨.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+js의 map 반복문 기본함수
+모든 array(배열)자료에는 map()함수를 붙일 수 있음.
+ex)
+var 어레이 = [2,3,4];
+어레이.map(function(){
+  console.log(1)
+});
+기능 1. array에 들어있는 자료갯수만큼 그 안에 있는 코드를 반복실행함.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+=========================================================
+var 어레이 = [2,3,4];
+어레이.map(function(a){
+  console.log(a)
+});
+기능 2. 콜백함수에 파라미터를 아무렇게나 작명하면 그 파라미터는 array안에 있던 모든 자료를 하나씩 출력함
+콜백함수란 ? 소괄호안에 있는 함수를 콜백함수라고 생각하면 편함.
+위에 코드 처럼 콜백함수 안에 파라미터를 지정해주면 콘솔창에 2,3,4가 나옴
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+==========================================================
+var 어레이 = [2,3,4];
+var newArray = 어레이.map(function(a){
+  return a * 10
+});
+console.log(newArray)
 
-## Learn More
+기능3 return 오른쪽에 뭐 적으면 array로 담아줌
+그리고 map() 쓴 자리에 남겨줌
+변수에 담아서 출력하면 array에 담아줌 
+newArray는 [20,30,40]이 출력이 된다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ map(function()) 에 콜백함수에는 파라미터 작명을 2개 가능함.
+ map(function(a)) 는 자료 자체를 가져옴
+ map(function(a, i) 에서 i는 반복되는 횟수를 가져옴 a가 2개 있으면 2번 반복함.
 
-### Code Splitting
+그리고  map 반복문으로 반복생성한 html엔 key={i} 이란 속성을 추가해줆
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+그래야 리액트가 <div>들을 각각 구분할 수 있음 없으면 브라우저 콘솔창에 워닝 띄움 
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+==========================================================
 
-### Making a Progressive Web App
+일반 for문 사용법
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. html들을 담아둘 array 자료를 하나 만들어줍니다.
 
-### Advanced Configuration
+2. 일반 for 반복문을 이용해서 반복문을 돌림 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. 반복될 때 마다 array자료에 <div> 하나씩 추가해줍니다. 
 
-### Deployment
+4. 원하는 곳에서 {array자료} 사용하면 됩니다. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+function App (){
+  
+  var 어레이 = [];
+  for (var i = 0; i < 3; i++) {
+    어레이.push(<div>안녕</div>)
+  }
+  return (
+    <div>
+      { 어레이 }
+    </div>
+  )
+}
+▲ 예를 들면 이런 식입니다.
 
-### `npm run build` fails to minify
+이렇게 해도 <div>안녕</div> 이게 3개 출현합니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+for 문법은 JSX 안에서 사용할 수 없어서 저렇게 바깥에서 쓰면 됩니다. 
+
+귀찮으면 map을 씁시다. 
+
+
+
+=========================================================
+prors 문법
+
+자식컴포넌트는 부모컴포넌트를 받아서 사용할 수 있음. 전송을 할 땐 props로 전송이 가능.
+
+props 사용 2가지 법칙
+1. <자식컴포넌트 작명={state이름}>
+
+2. 자식 컴포넌트에서 사용할 파라미터로props설정 << 보통 이름을 props라고 작명함. 
+     {props.작명}
+   근데 보통 작명은 오른쪽에 있는 이름을 사용해서 작명함
+
+  ex) <자식컴포넌트 글제목={글제목}>   {props.글제목}
+
+변수만 가져올 수 있는게 아니라 함수 등 다양한걸 가져올 수 있음. ex) set글제목 같은.
+
+ e.stopPropagation(); 이벤트 버블링을 막는 함수.	//자바스크립트 문법.
+
+
+======================================================
+
+숙제 버튼누르면 글추가.
+
+array 나 object state를 사용할거면 원본 훼손이 안되게 카피본을 먼저 만듦 
+let copy = [...글제목] 등 
+
+배열에 새 배열을 추가하는 방법은 많지만
+코딩애플은 copy.unshift(입력값)를 사용했음
+
+나는 gpt가 알려준
+let copy = [...글제목, 입력값]을 사용함.
+
+배열의 삭제
+copy.splice(i,1);
+splice()함수는  매개변수에 (삭제할 위치, 그 위치부터 삭제 개수, 삭제된 자리에 추가할 배열데이터)를 입력 가능하다.
+
+ex 
+copy.splice(1,1);   배열의 두 번째 자리부터 1개씩 삭제하겠다. 왜? 인덱스는 0부터 시작. 0이 첫번째 자리임.
+copy.splice(0,1, 2);	배열의 첫 번째 자리를 삭제하고 그 위치에 2를 추가하겠다.
+copy.splice(-1,1);	배열의 끝 자리를 지우겠다. 두번째 매개변수에 2를 넣으면 끝에서 2번째를 지움.
+
+
+======== ========== =========== ============== ========= =========== =========
+2장.
+
+pubilc폴더를 어느때 씀?
+
+
+======================================================
+리액트라우터(react-router-dom@6)
+기본적인3가지
+Routes, Route, Link
+
+Routes : Route를 감싸주는 컴포넌트. 
+
+Route : 내가 만든 페이지라고 생각하면 됨 
+	<Route path='/detail' element={<div>상세페이지임</div>} /> 만든 페이지명 elemet 만든 페이지로 이동할 수 있게.
+
+Link : 페이지 이동버튼 <Link to ="/detail">상세페이지<Link> 이동할 수 있음.
+
+
+=====================================================
+훅이란?
+use뭐시기 붙어있는게 다 훅임
+훅은 유용한 기능들이 들어있는 함수들임.
+
+nested routes : 태그 안에 태그를 넣는 문법?
+
+장점 : 누가 /뭐시기로 접속하면 동시에 엘리먼트가 2개까지 보임. 근데 그냥 쓰기만해서 보이는게 아니라
+ <Outlet></Outlet>을 써야보임
+그게뭔데? : 그냥 구멍이란 뜻임 뚫은nested routes를 어디에 보여줄건지 뚫는거임
+
+======================================================
+find()함수 : 배열에서 사용가능.
+파라미터 값엔
+find(element , index, array)값이 들어갈 수있음.
+
+callback: 배열의 각 요소에 대해 실행할 함수입니다. callback 함수는 다음 세 가지 인자를 받습니다:
+element: 배열의 현재 처리 중인 요소
+index (선택적): 배열의 현재 요소의 인덱스
+array (선택적): find 메서드가 호출된 배열 자체
+thisArg (선택적): callback 함수 내에서 this로 사용할 값을 지정할 수 있습니다.
+
+
+filter()함수 : 배열에서 사용가능
+filter(element, index, array)값이 들어갈 수 있음
+
+element: 현재 처리 중인 배열의 요소.
+index (선택적): 현재 처리 중인 요소의 인덱스.
+array (선택적): filter가 호출된 배열 자체.
+
+.filter()와 .map()의 차이:
+.map(): 배열의 모든 요소를 변환하고, 새로운 배열을 반환합니다. 각 요소가 어떤 방식으로든 변형되어 새 배열에 포함됩니다.
+.filter(): 배열의 요소들 중 특정 조건을 만족하는 요소들만 반환합니다. 변형은 없고, 조건에 맞는지 여부에 따라 필터링만 됩니다.
+
+
+
+======================================================
+styled-components 
+사용법
+let YellowBtn = styled.butten`	// 버튼을 스타일 하겠다.
+  background : yellow;
+  color : black;
+  padding : 10px;
+`
+
+let Box = styled.div`	//div 박스를 스타일 하겠다.
+  background : grey;
+  paading : 20px;
+`
+그냥 스타일인데 컴포넌트를 하나 생성한다고 생각하면 됨.
+
+장점 : 스타일이 다른 js파일로 오염되지 않음
+
+단점은 : js파일이 지저분해짐. 
+
+=====================================================
+
+
+useEffect(()=>{
+  여기안에 적은 코드는 detail컴포넌트가 처음 적용 또는 업데이트 됐을 때 실행이 됨.
+})
+
+쓰는이유? : 랜더링이 다 되고나서 동작을 함.
+ 오래걸리는 연산 서버에서 데이터 가져오기등 미리 가져오려고하면 html화면이 늦게 나올 수 있어서
+ 먼저 html화면을 가져오고나서 데이터를 가져오기 위해 (화면이 좀 더 빨리나와서 빨라보임)
+
+왜 Effect임? 
+
+side Effect에서 따왔는데 함수의 핵심기능과 상관없는 부가기능들을 넣는거라 해서 Effect임 리액트 만든사람이 그렇다함.
+
+
+useEffect(()=>{
+  //사용할코드
+},[ ])
+
+useEffect를 사용할 시 [ ]도 넣어줘야하는데 이걸 디펜던시라고 부름 변수나 스테이트를 넣을 수 있음
+  빈값을 넣을 땐 html의 랜더링이 끝날 때 적용이 되는데 
+  [state명] 을 가져다 쓰면 해당 [state명]이 변할 때 만 실행이 됨. 근데 mount시에 적용되는건 똑같음.
+
+mount시 1회만 실행시키고 싶으면 [ ]을 빈값으로 넣으면 됨. [ ]를 안넣으면 mount, update시 실행이됨.
+
+useEffect()에는 clean up  function이 있는데 뭐하는 거냐면
+
+useEffect( ( )=>{ 
+  //html랜더링 되고 실행할 코드
+ return( ) => { 
+ //Effect가 실행되기전에 기존 Effect를 없애기 위한 코드 
+}
+}) 
+
+임 너무 많은 요청이 들어와서 버그가 날 수도 있어서 기존에 실행하는 Effect를 청소하는거라 생각하면 됨 
+ 
+clean up function은 mount시 실행이 안되고 unmount시 실행이 됨.
+
+unmount : 컴포넌트가 삭제가 될 때 페이지를 이동할 때.
+
+
+
+=======================================================
+
+서버 : 부탁하면 들어주는 프로그램이라 생각하면 편함.
+요청 : 
+GET : 데이터를 가져올 때 사용
+POST : 서버에 데이터를 보내고싶을 때 사용
+
+AJAX란? 
+
+서버에 GET, POST 요청을 할 때 새로고침 없이 데이터를 주고받을 수 있게 도와주는
+
+간단한 브라우저 기능을 AJAX라고 합니다. 
+
+그거 쓰면 새로고침 없이도 쇼핑몰 상품을 더 가져올 수도 있고
+
+새로고침 없이도 댓글을 서버로 전송할 수도 있고 
+
+그런 기능을 만들 수 있는 것임 
+
+ajax로 GET요청 가능.
+ajax 쓰려면 옵션 3개중 택 1
+1. XMLHttpRequest
+2. fetch()
+3. axios 
+
+            <button onClick={()=>{
+                axios.get('https://codingapple1.github.io/shop/data2.json')   //axios 인스톨 받은 후 받을 URL입력
+                .then((data)=>{ 		// .then() 안에 콜백함수 받고 파라미터 값은 위에서 받은 데이터가 들어가 있음.
+                  data })		// 서버가 보낸 핵심 데이터를 보려면 파라미터값에 .data를 붙이면 됨 ex) 파라미터값이 data이므로 console.log(data.data) 으로 핵심 데이터를 볼 수 있음 
+            }}>불러오기</button>
+보통 작명은 결과 값을 알아볼 수 있게 result를 많이 씀 데이터만 불러올거면 data도 좋을듯?
+aixos 요청결과 : axios.get('URL').then()
+서버에서 GET요청으로 불러오려면 이렇게 하면 됨.
+새로고침 없이도 데이터를 불러올 수 있어서 비동기통신에는 ajax를 많이씀 리액트에선 자주씀. 
+
+ajax에 실패할 경우? : 특정 코드를 실행하고 싶으면 .catch(()=>{})로 처리해서 실패처리가능. then뒤에 붙여야함 
+
+
+=====================================================
+데이터를 건들 때(추가, 삭제) 원본데이터가 어떻게 생겼는지 꼭 확인하자 console.log
+
+axios에서 배열 합치기
+배열을 서로 더할 때 concat()이란 함수가 있음 : 검색해보기.
+
+더욱 쉽게 배열을 합칠거면 [...기존배열, ...새로운배열.data]
+
+동적인 UI를 잘 만드는법을 기억해둬야함.
+
+
+===================================================
+다시 새기는 동적인 UI만들기
+1. html css 디자인하기.
+2. 탭 상태 저장해둘 state 필요.
+3.state에 따라서 UI가 어떻게 보일지 작성.
+
+===================================================
+
+props를 굳이 안받아오고 props 명을 받아서 {props명}으로 props를 불러올 수 있음
+ex)
+
+function Tapcount( {tap} ){
+    if(tap == 0){
+       return <div>버튼0</div>
+    }
+    if(tap == 1){
+        return <div>버튼1</div>
+     }
+     if(tap == 2){
+        return <div>버튼2</div>
+     }
+}
+
+이렇게 불러올 수도 있음 코드가 좀 더 간결해짐.
+
+
+=====================================================
+애니메이션 만들기.
+1. 애니메이션 동작 전 className 만들기
+2. 애니메이션 동작 후 className 만들기
+3. className에 transition 속성 추가.
+4. 원할 때 2번 className 부착.
