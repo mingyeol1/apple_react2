@@ -475,3 +475,18 @@ export default configureStore({
 3. index.jks 가서 <Provider store= import해온거.js > 쓰기    
 
 그럼 이제 <App>과 그 모든 자식컴포넌트들은 store.js에 있던 state를 맘대로 꺼내쓸 수 있습니다.
+
+==============================================
+
+Redux의 state 변경하는법
+
+state 수정해주는 함수 만듦 3 step
+1. state 수정해주는 함수만들기 (reducers : {})
+
+
+원할 때 그 함수를 실행해달라고 store.js에 요청.
+
+2. 만든함수 export 해야함
+
+3. 만든 함수 import 해서 사용
+
