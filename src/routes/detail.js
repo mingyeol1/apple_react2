@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import '../App.css';
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../store";
 
 function Detail(props){
 
+    let item = useSelector((state)=>{return state.item})
     let {id} = useParams();
     let 찾은상품 = props.shoes.find(function(x){
         return x.id == id;
@@ -13,7 +16,7 @@ function Detail(props){
     let [num, setNum] = useState('')    
     let [tap, setTap] = useState(2);
     let [fade, setFade] = useState(''); // 서서히 페이지가 나오는 애니메이션 스테이트
-
+    let dispatch = useDispatch() //store.js로 요청보내주는 함수
     // useEffect(() => {
     //     if(isNaN(num)){ //isNaN : 숫자면 false 문자면 ture처리하는 함수
     //         setDisPlay(true) // 문자면 true여서 숫자만적으셈 출력
@@ -50,7 +53,10 @@ function Detail(props){
             <p>{찾은상품.price}원</p>
             {/* <p style={{display : disPlay ? "block" : "none"}}>숫자만적으셈</p>  키 : 벨류(display : disPlay)  형태 true면 문자출력 false면 출력하지 않음.  */}
             <input type="text" onChange={(e) => setNum(e.target.value)}></input>
-            <button className="btn btn-danger">주문하기</button> 
+            <button className="btn btn-danger" onClick={()=>{
+                dispatch(addItem({id : 2, name : 찾은상품.title, count : 1}))
+                console.log(item)
+            }}>주문하기</button> 
             </div>
         </div>
 

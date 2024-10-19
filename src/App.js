@@ -35,9 +35,10 @@ function App() {
         <Container>
             <Navbar.Brand href="#home">매기샵</Navbar.Brand>
             <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
-            <Nav.Link onClick={() => {navigate('/detail')}}>Detail</Nav.Link>
+
+              <Link to="/">Home</Link>
+              <Link to="/cart">Cart</Link>
+              <Link to="/detail/0">Detail</Link>
           </Nav>
         </Container>
       </Navbar>

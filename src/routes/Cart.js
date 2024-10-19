@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { changeAge, changeName } from "./../store/useSlice";
+import { changeAge, changeName} from "./../store/useSlice";
+import {itemCount} from "../store"
 
 function Cart(){
 
@@ -32,7 +33,7 @@ function Cart(){
                         <td>{item.item[i].count}</td>
                         <td>
                         <button onClick={()=>{
-                            dispatch(changeName())
+                            dispatch(itemCount(item.item[i].id))
                         }}>+</button>
                         </td>
 
