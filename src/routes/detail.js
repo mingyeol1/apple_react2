@@ -33,12 +33,15 @@ function Detail(props){
     // },[])
   
     useEffect(()=>{
+
+        // localStorage.setItem('watched', [찾은상품.id]) 이건 안됨 안되는 이유는 기존 상품 자체를 덮어씌움 덮어 씌우는게 아니라 추가를 해야함.
+        // 덮어 씌우는게 아니라 수정을 해야하는 수정을 하려면 기존 데이터를 꺼내고 추가를 하는 방식으로 접근하기.
      
        let getId = localStorage.getItem('watched')
         getId = JSON.parse(getId)
         getId.push(찾은상품.id)
         getId = new Set(getId)
-        getId = Array.from(getId);
+        getId = Array.from(getId)
         localStorage.setItem('watched', JSON.stringify(getId));
       
     },[])

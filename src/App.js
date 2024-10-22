@@ -9,6 +9,7 @@ import About from './routes/about';
 import Event from './routes/event';
 import axios from 'axios';
 import Cart from './routes/Cart';
+import { useQuery } from 'react-query';
 
 
 let Context1 = createContext();
@@ -17,17 +18,29 @@ let Context1 = createContext();
 function App() {
 
   useEffect(() => {
+    if(!localStorage.getItem('watched'))
     localStorage.setItem('watched', JSON.stringify([]))
   },[])
 
-  let obj = {name : 'kim'}
-  localStorage.setItem('data' , JSON.stringify(obj))
+  // let obj = {name : 'kim'}
+  // localStorage.setItem('data' , JSON.stringify(obj))
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   let [num, setNum] = useState(2);
   let [loding, setLoding] = useState(false)
   let [재고] = useState([10,11,12]);
+
+  let result = useQuery(['작명'], ()=>{ 
+    return axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+      return a.data
+    })
+  })
+
+  // result.data // 요청이 성공했을 때 가져오는 데이터
+  // result.isLoading // 로딩중일때 요청중일때 ture
+  // result.error  //요청에 실패했을 때 ture
+
 
   return (
     <div className="App">
@@ -46,6 +59,9 @@ function App() {
               <Link to="/">Home</Link>
               <Link to="/cart">Cart</Link>
               <Link to="/detail/0">Detail</Link>
+          </Nav>
+          <Nav className='ms-auto' style={{'color' : 'white'}}>반가워요 
+            { result.isLoading ? '로딩중' : result.data.name}
           </Nav>
         </Container>
       </Navbar>
