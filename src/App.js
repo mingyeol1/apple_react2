@@ -14,6 +14,15 @@ import { useQuery } from 'react-query';
 
 let Context1 = createContext();
 
+function Child(){
+  console.log('재랜더링됨')
+  return(
+    <div>
+      자식임
+    </div>
+  )
+}
+
 
 function App() {
 
@@ -31,6 +40,8 @@ function App() {
   let [loding, setLoding] = useState(false)
   let [재고] = useState([10,11,12]);
 
+  let [count ,setCount] = useState(0);
+
   let result = useQuery(['작명'], ()=>{ 
     return axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
       return a.data
@@ -44,8 +55,8 @@ function App() {
 
   return (
     <div className="App">
-      
-      
+        <Child></Child>
+        <button onClick={()=>{setCount(count + 1)}}> + </button>
 
 
 
