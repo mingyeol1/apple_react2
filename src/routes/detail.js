@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 import '../App.css';
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../store";
@@ -31,6 +31,18 @@ function Detail(props){
     //     },2000)
     //     console.log(time)
     // },[])
+  
+    useEffect(()=>{
+     
+       let getId = localStorage.getItem('watched')
+        getId = JSON.parse(getId)
+        getId.push(찾은상품.id)
+        getId = new Set(getId)
+        getId = Array.from(getId);
+        localStorage.setItem('watched', JSON.stringify(getId));
+      
+    },[])
+
     useEffect(()=>{
         setTimeout(()=>{setFade('end')},500); //페이지 입장시 0.5초뒤에 end className 붙이기
         return(()=>{
@@ -54,7 +66,7 @@ function Detail(props){
             {/* <p style={{display : disPlay ? "block" : "none"}}>숫자만적으셈</p>  키 : 벨류(display : disPlay)  형태 true면 문자출력 false면 출력하지 않음.  */}
             <input type="text" onChange={(e) => setNum(e.target.value)}></input>
             <button className="btn btn-danger" onClick={()=>{
-                dispatch(addItem({id : 2, name : 찾은상품.title, count : 1}))
+                dispatch(addItem({id : 3, name : 찾은상품.title, count : 1}))
                 console.log(item)
             }}>주문하기</button> 
             </div>

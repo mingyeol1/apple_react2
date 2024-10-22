@@ -1,6 +1,6 @@
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import './App.css';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import Shoes from './shose';
 import data from './data';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
@@ -15,6 +15,13 @@ let Context1 = createContext();
 
 
 function App() {
+
+  useEffect(() => {
+    localStorage.setItem('watched', JSON.stringify([]))
+  },[])
+
+  let obj = {name : 'kim'}
+  localStorage.setItem('data' , JSON.stringify(obj))
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
@@ -56,7 +63,7 @@ function App() {
               {
                 shoes.map(function(a, i){
                   return(
-                <Shoes shoes={shoes} i={i} key={i}></Shoes> 
+                <Link to={`/detail/${i}`}> <Shoes shoes={shoes} i={i} key={i}></Shoes> </Link> 
                 )})
               }
               </div>

@@ -490,3 +490,49 @@ state 수정해주는 함수 만듦 3 step
 
 3. 만든 함수 import 해서 사용
 
+
+================================================
+
+localStorage 
+
+1. Key : value 형태로 저장이 가능하며 거의 반 영구적으로 저장이 가능
+
+2. 최대 5MB까지 문자만 저장가능
+
+3. 사이트 재 접속해도 남아있음(브라우저 청소하면 삭제됨)
+
+sessionStorage 
+
+1. localStorate와 달리 브라우저를 재접속하면 사라짐
+
+
+로컬스토리지 사용법
+localStorage.setItem('자료이름','자료값') key : value 자료저장
+
+localStorage.getItem('자료이름')  데이터 출력
+
+localStorage.removeItem('자료이름') 저장된 데이터 삭제
+
+형식적으로는 array / object형 자료는 저장을 못하지만 JNON형태로 바꿔주면 저장이 가능
+
+JNON.stringify() 사용하면 쉽게 변환이 가능
+
+근데 꺼내서 볼때도 JNON자료라 .name같은 오브젝트형 자료처럼 불러올 수 없음
+그리서 다시 object형식으로 다시 변환해야함
+
+JSON.parse()로 다시 object형으로 변환이 가능
+
+
+===============================================
+
+Set 자료형이란?
+
+쉽게 말하면 중복을 허용하지 않는 array자료형
+
+기존 array에서 Set으로 바꾸고 다시 array로 사용하려면 array로 변환해야함
+
+
+
+
+
+

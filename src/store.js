@@ -19,13 +19,23 @@ let item = createSlice({
             console.log(번호)
         },
         addItem(state, actions){
-            state.push(actions.payload)
+            let 번호 = state.findIndex((a) => a.id === actions.payload.id);
+            if (번호 !== -1) {
+                state[번호].count += 1;
+            } else {
+                state.push(actions.payload);
+            }
+            
+        },
+        deleteItem(state, actions){
+            let copy = state;
+            copy.splice(actions.payload, 1)
         }
     }
 
 })
 
-export let {itemCount,addItem} = item.actions
+export let {itemCount,addItem, deleteItem} = item.actions
 
 export default configureStore({
     reducer: {
