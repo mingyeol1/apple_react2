@@ -4,8 +4,11 @@ import { json, useParams } from "react-router-dom";
 import '../App.css';
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../store";
+import { useLike } from "../hooks/like";
 
 function Detail(props){
+
+    useLike()
 
     let item = useSelector((state)=>{return state.item})
     let {id} = useParams();
@@ -17,6 +20,8 @@ function Detail(props){
     let [tap, setTap] = useState(2);
     let [fade, setFade] = useState(''); // 서서히 페이지가 나오는 애니메이션 스테이트
     let dispatch = useDispatch() //store.js로 요청보내주는 함수
+    let [like, addLike] = useLike();
+   
     // useEffect(() => {
     //     if(isNaN(num)){ //isNaN : 숫자면 false 문자면 ture처리하는 함수
     //         setDisPlay(true) // 문자면 true여서 숫자만적으셈 출력
@@ -46,6 +51,8 @@ function Detail(props){
       
     },[])
 
+
+
     useEffect(()=>{
         setTimeout(()=>{setFade('end')},500); //페이지 입장시 0.5초뒤에 end className 붙이기
         return(()=>{
@@ -63,6 +70,9 @@ function Detail(props){
             <img src={`https://codingapple1.github.io/shop/shoes${Number(id)+1}.jpg`} width="100%" />
             </div>
             <div className="col-md-6">
+
+            {like} <span onClick={()=>  { addLike() } }>하트</span>
+
             <h4 className="pt-5">{찾은상품.title}</h4>
             <p>{찾은상품.content}</p>
             <p>{찾은상품.price}원</p>

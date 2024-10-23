@@ -10,6 +10,7 @@ import Event from './routes/event';
 import axios from 'axios';
 import Cart from './routes/Cart';
 import { useQuery } from 'react-query';
+import { useUser } from './hooks/username';
 
 
 let Context1 = createContext();
@@ -33,7 +34,7 @@ function App() {
 
   // let obj = {name : 'kim'}
   // localStorage.setItem('data' , JSON.stringify(obj))
-
+  let [username] = useUser()
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   let [num, setNum] = useState(2);
@@ -56,6 +57,7 @@ function App() {
   return (
     <div className="App">
         <Child></Child>
+        <p>{ username }</p>
         <button onClick={()=>{setCount(count + 1)}}> + </button>
 
 
